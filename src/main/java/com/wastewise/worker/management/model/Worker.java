@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "worker")
 public class Worker {
     @Id
     @Column(name = "worker_id")
