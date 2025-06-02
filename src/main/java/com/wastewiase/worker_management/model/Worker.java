@@ -1,14 +1,17 @@
 package com.wastewiase.worker_management.model;
 
-
 import com.wastewiase.worker_management.enums.WorkerStatus;
 import jakarta.persistence.*;
 
 import java.util.Date;
 
+/**
+ * Entity representing a sanitation worker in the system.
+ */
 @Entity
 @Table(name = "worker")
 public class Worker {
+
     @Id
     @Column(name = "worker_id")
     private String workerId;
@@ -22,12 +25,12 @@ public class Worker {
     @Column(name = "contact_email")
     private String contactEmail;
 
-    @Column(name = "worker_status")
     @Enumerated(EnumType.STRING)
+    @Column(name = "worker_status")
     private WorkerStatus workerStatus;
 
     @Column(name = "role_id")
-    private String role_id;
+    private String roleId;
 
     @Column(name = "created_by")
     private String createdBy;
@@ -41,103 +44,52 @@ public class Worker {
     @Column(name = "updated_date")
     private Date updatedDate;
 
-    public Worker(){};
+    public Worker() {}
 
-    public Worker(String workerId, String name,
-                  String contactNumber, String contactEmail,
-                  WorkerStatus workerStatus, String role_id,
-                  String createdBy, Date createdDate,
-                  String updatedBy, Date updatedDate) {
-        super();
+    public Worker(String workerId, String name, String contactNumber, String contactEmail,
+                  WorkerStatus workerStatus, String roleId, String createdBy,
+                  Date createdDate, String updatedBy, Date updatedDate) {
         this.workerId = workerId;
         this.name = name;
         this.contactNumber = contactNumber;
         this.contactEmail = contactEmail;
         this.workerStatus = workerStatus;
-        this.role_id = role_id;
+        this.roleId = roleId;
         this.createdBy = createdBy;
         this.createdDate = createdDate;
         this.updatedBy = updatedBy;
         this.updatedDate = updatedDate;
     }
 
-    public String getWorkerId() {
-        return workerId;
-    }
+    /** Getters and Setters */
 
-    public void setWorkerId(String workerId) {
-        this.workerId = workerId;
-    }
+    public String getWorkerId() { return workerId; }
+    public void setWorkerId(String workerId) { this.workerId = workerId; }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String getContactNumber() { return contactNumber; }
+    public void setContactNumber(String contactNumber) { this.contactNumber = contactNumber; }
 
-    public String getContactNumber() {
-        return contactNumber;
-    }
+    public String getContactEmail() { return contactEmail; }
+    public void setContactEmail(String contactEmail) { this.contactEmail = contactEmail; }
 
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
-    }
+    public WorkerStatus getWorkerStatus() { return workerStatus; }
+    public void setWorkerStatus(WorkerStatus workerStatus) { this.workerStatus = workerStatus; }
 
-    public String getContactEmail() {
-        return contactEmail;
-    }
+    public String getRoleId() { return roleId; }
+    public void setRoleId(String roleId) { this.roleId = roleId; }
 
-    public void setContactEmail(String contactEmail) {
-        this.contactEmail = contactEmail;
-    }
+    public String getCreatedBy() { return createdBy; }
+    public void setCreatedBy(String createdBy) { this.createdBy = createdBy; }
 
-    public WorkerStatus getWorkerStatus() {
-        return workerStatus;
-    }
+    public Date getCreatedDate() { return createdDate; }
+    public void setCreatedDate(Date createdDate) { this.createdDate = createdDate; }
 
-    public void setWorkerStatus(WorkerStatus workerStatus) {
-        this.workerStatus = workerStatus;
-    }
+    public String getUpdatedBy() { return updatedBy; }
+    public void setUpdatedBy(String updatedBy) { this.updatedBy = updatedBy; }
 
-    public String getRole_id() {
-        return role_id;
-    }
-
-    public void setRole_id(String role_id) {
-        this.role_id = role_id;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
-    }
-
-    public Date getUpdatedDate() {
-        return updatedDate;
-    }
-
-    public void setUpdatedDate(Date updatedDate) {
-        this.updatedDate = updatedDate;
-    }
+    public Date getUpdatedDate() { return updatedDate; }
+    public void setUpdatedDate(Date updatedDate) { this.updatedDate = updatedDate; }
 }
