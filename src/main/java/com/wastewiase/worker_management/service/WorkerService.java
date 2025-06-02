@@ -1,0 +1,83 @@
+package com.wastewiase.worker_management.service;
+
+import com.wastewiase.worker_management.dto.WorkerCreateDTO;
+import com.wastewiase.worker_management.dto.WorkerDTO;
+import com.wastewiase.worker_management.dto.WorkerUpdateDTO;
+import com.wastewiase.worker_management.exception.WorkerNotFoundException;
+import com.wastewiase.worker_management.model.Worker;
+import com.wastewiase.worker_management.repository.WorkerRepository;
+import com.wastewiase.worker_management.utility.IdGenerator;
+import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class WorkerService {
+
+    private final WorkerRepository workerRepository;
+
+    private IdGenerator idGenerator;
+
+    public WorkerService(WorkerRepository workerRepository){
+        this.workerRepository = workerRepository;
+    }
+
+    public Worker createWorker(WorkerCreateDTO worker){
+        Worker worker1 = new Worker();
+        worker1.setWorkerId(idGenerator.generateWorkerId());
+        worker1.setName(worker.getName());
+        worker1.setWorkerStatus(worker.getWorkerStatus());
+        worker1.setContactNumber(worker.getContactNumber());
+        worker1.setContactEmail(worker.getContactEmail());
+        worker1.setCreatedBy(worker.getCreatedBy());
+        worker1.setCreatedDate(new Date());
+
+        return workerRepository.save(worker1);
+    }
+
+    public WorkerDTO getWorker(String id) throws WorkerNotFoundException {
+        Optional<Worker> workerOptional =  workerRepository.findById(id);
+        if(workerOptional.isEmpty()){
+            throw new WorkerNotFoundException("Worker with id "+ id + " does not exist");
+        }
+        Worker worker = workerOptional.get();
+        WorkerDTO workerDTO = new WorkerDTO();
+        workerDTO.setId(worker.getWorkerId());
+        workerDTO.setName(worker.getName());
+        workerDTO.setWorkerStatus(worker.getWorkerStatus());
+        workerDTO.setContactEmail(worker.getContactEmail());
+        workerDTO.setContactNumber(worker.getContactNumber());
+        workerDTO.setWorkerStatus(worker.getWorkerStatus());
+
+        return workerDTO;
+    }
+
+    public List<String> getWorkerIds(){
+        return workerRepository.findAllWorkerId();
+    }
+
+    public List<String> getAllAvailableWorkerIds(){
+        return workerRepository.findWorkerIdAvailableStatus();
+    }
+
+    public WorkerUpdateDTO updateWorker(String id, WorkerUpdateDTO workerUpdateDTO) throws WorkerNotFoundException{
+        Optional<Worker> workerOptional = workerRepository.findById(id);
+        if(workerOptional.isEmpty()){
+            throw new WorkerNotFoundException("Worker with id "+ id + " does not exist");
+        }
+        Worker worker = workerOptional.get();
+        worker.setName(workerUpdateDTO.getName());
+        worker.setContactNumber(workerUpdateDTO.getContactNumber());
+        worker.setContactEmail(workerUpdateDTO.getContactEmail());
+        worker.setRole_id(workerUpdateDTO.getRole_id());
+        worker.setWorkerStatus(workerUpdateDTO.getWorkerStatus());
+        worker.setUpdatedBy(workerUpdateDTO.getUpdatedBy());
+        worker.setUpdatedDate(new Date());
+
+        workerRepository.save(worker);
+
+        return workerUpdateDTO;
+    }
+}
