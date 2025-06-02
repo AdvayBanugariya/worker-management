@@ -15,7 +15,7 @@ public class WorkerAssignment {
     @EmbeddedId
     private WorkerAssignmentId id;
 
-    @ManyToOne
+    @OneToOne
     @MapsId("workerId")  // maps the embedded FK
     @JoinColumn(name = "worker_id", referencedColumnName = "worker_id")
     private Worker worker;
