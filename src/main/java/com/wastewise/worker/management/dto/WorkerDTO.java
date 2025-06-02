@@ -1,36 +1,38 @@
 package com.wastewise.worker.management.dto;
 
 import com.wastewise.worker.management.enums.WorkerStatus;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 
 import java.util.Date;
 
-public class WorkerCreateDTO {
-
+public class WorkerDTO {
+    private String id;
     private String name;
     private String contactNumber;
     private String contactEmail;
     private WorkerStatus workerStatus;
     private String role_id;
-    private String createdBy;
-    private Date createdDate;
 
-    public WorkerCreateDTO(){}
+    public WorkerDTO(){}
 
-    public WorkerCreateDTO(String name, String contactNumber,
-                           String contactEmail, WorkerStatus workerStatus,
-                           String role_id, String createdBy,
-                           Date createdDate) {
+    public WorkerDTO(String id, String name,
+                     String contactNumber,
+                     String contactEmail, WorkerStatus workerStatus,
+                     String role_id) {
         super();
+        this.id = id;
         this.name = name;
         this.contactNumber = contactNumber;
         this.contactEmail = contactEmail;
         this.workerStatus = workerStatus;
         this.role_id = role_id;
-        this.createdBy = createdBy;
-        this.createdDate = createdDate;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -73,19 +75,4 @@ public class WorkerCreateDTO {
         this.role_id = role_id;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
 }

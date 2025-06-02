@@ -1,71 +1,32 @@
-package com.wastewise.worker.management.model;
+package com.wastewise.worker.management.dto;
 
 import com.wastewise.worker.management.enums.WorkerStatus;
-import jakarta.persistence.*;
 
 import java.util.Date;
 
-@Entity
-@Table(name = "worker")
-public class Worker {
-    @Id
-    @Column(name = "worker_id")
-    private String workerId;
-
-    @Column(name = "name")
+public class WorkerUpdateDTO {
     private String name;
-
-    @Column(name = "contact_number")
     private String contactNumber;
-
-    @Column(name = "contact_email")
     private String contactEmail;
-
-    @Column(name = "worker_status")
-    @Enumerated(EnumType.STRING)
     private WorkerStatus workerStatus;
-
-    @Column(name = "role_id")
     private String role_id;
-
-    @Column(name = "created_by")
-    private String createdBy;
-
-    @Column(name = "created_date")
-    private Date createdDate;
-
-    @Column(name = "updated_by")
     private String updatedBy;
-
-    @Column(name = "updated_date")
     private Date updatedDate;
 
-    public Worker(){};
+    public WorkerUpdateDTO(){}
 
-    public Worker(String workerId, String name,
-                  String contactNumber, String contactEmail,
-                  WorkerStatus workerStatus, String role_id,
-                  String createdBy, Date createdDate,
-                  String updatedBy, Date updatedDate) {
+    public WorkerUpdateDTO(String name, String contactNumber,
+                           String contactEmail, WorkerStatus workerStatus,
+                           String role_id, String updatedBy,
+                           Date updatedDate) {
         super();
-        this.workerId = workerId;
         this.name = name;
         this.contactNumber = contactNumber;
         this.contactEmail = contactEmail;
         this.workerStatus = workerStatus;
         this.role_id = role_id;
-        this.createdBy = createdBy;
-        this.createdDate = createdDate;
         this.updatedBy = updatedBy;
         this.updatedDate = updatedDate;
-    }
-
-    public String getWorkerId() {
-        return workerId;
-    }
-
-    public void setWorkerId(String workerId) {
-        this.workerId = workerId;
     }
 
     public String getName() {
@@ -106,22 +67,6 @@ public class Worker {
 
     public void setRole_id(String role_id) {
         this.role_id = role_id;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
     }
 
     public String getUpdatedBy() {
