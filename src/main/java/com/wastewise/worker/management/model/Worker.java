@@ -10,7 +10,7 @@ import java.util.Date;
 public class Worker {
     @Id
     @Column(name = "worker_id")
-    private String id;
+    private String workerId;
 
     @Column(name = "name")
     private String name;
