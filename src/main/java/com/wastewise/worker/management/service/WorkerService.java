@@ -61,4 +61,23 @@ public class WorkerService {
     public List<String> getAllAvailableWorkerIds(){
         return workerRepository.findWorkerIdAvailableStatus();
     }
+
+    public WorkerUpdateDTO updateWorker(String id, WorkerUpdateDTO workerUpdateDTO) throws WorkerNotFoundException{
+        Optional<Worker> workerOptional = workerRepository.findById(id);
+        if(workerOptional.isEmpty()){
+            throw new WorkerNotFoundException("Worker with id "+ id + " does not exist");
+        }
+        Worker worker = workerOptional.get();
+        worker.setName(workerUpdateDTO.getName());
+        worker.setContactNumber(workerUpdateDTO.getContactNumber());
+        worker.setContactEmail(workerUpdateDTO.getContactEmail());
+        worker.setRole_id(workerUpdateDTO.getRole_id());
+        worker.setWorkerStatus(workerUpdateDTO.getWorkerStatus());
+        worker.setUpdatedBy(workerUpdateDTO.getUpdatedBy());
+        worker.setUpdatedDate(new Date());
+
+        workerRepository.save(worker);
+
+        return workerUpdateDTO;
+    }
 }
