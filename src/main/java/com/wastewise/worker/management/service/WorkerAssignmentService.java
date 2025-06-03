@@ -1,9 +1,12 @@
 package com.wastewise.worker.management.service;
 
-import com.wastewise.worker.management.model.WorkerAssignment;
+import com.wastewise.worker.management.exception.ResourceNotFoundException;
+import com.wastewise.worker.management.model.WorkerAssignmentId;
 import com.wastewise.worker.management.repository.WorkerAssignmentRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class WorkerAssignmentService {
     private final WorkerAssignmentRepository workerAssignmentRepository;
@@ -12,10 +15,17 @@ public class WorkerAssignmentService {
         this.workerAssignmentRepository = workerAssignmentRepository;
     }
 
-    public String deleteWorkerAssignment(String id){
-        return null;
-        //also change the status of the worker from available to occupied
+    public String deleteWorkerAssignment(String assignmentId, String workerId) {
+        WorkerAssignmentId id = new WorkerAssignmentId(assignmentId, workerId);
+        if (workerAssignmentRepository.existsById(id)) {
+            workerAssignmentRepository.deleteById(id);
+            log.info("Deleted assignment {} for worker {}", assignmentId, workerId);
+            return "Deleted";
+        } else {
+            throw new ResourceNotFoundException("Worker assignment not found");
+        }
     }
+
 
 
 }
