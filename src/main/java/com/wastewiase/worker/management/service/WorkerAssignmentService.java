@@ -1,11 +1,13 @@
-package com.wastewiase.worker_management.service;
+package com.wastewiase.worker.management.service;
 
 
-import com.wastewiase.worker_management.exception.ResourceNotFoundException;
-import com.wastewiase.worker_management.model.WorkerAssignmentId;
-import com.wastewiase.worker_management.repository.WorkerAssignmentRepository;
+import com.wastewiase.worker.management.exception.ResourceNotFoundException;
+import com.wastewiase.worker.management.model.WorkerAssignmentId;
+import com.wastewiase.worker.management.repository.WorkerAssignmentRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class WorkerAssignmentService {
     private final WorkerAssignmentRepository workerAssignmentRepository;

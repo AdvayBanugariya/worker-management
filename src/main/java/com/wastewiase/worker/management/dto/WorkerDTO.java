@@ -1,9 +1,9 @@
-package com.wastewiase.worker_management.dto;
+package com.wastewiase.worker.management.dto;
 
-import com.wastewiase.worker_management.enums.WorkerStatus;
+import com.wastewiase.worker.management.enums.WorkerStatus;
+import lombok.Data;
 
-import java.util.Date;
-
+@Data
 public class WorkerDTO {
     private String id;
     private String name;

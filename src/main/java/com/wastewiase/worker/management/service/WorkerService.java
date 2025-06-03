@@ -1,13 +1,13 @@
-package com.wastewiase.worker_management.service;
+package com.wastewiase.worker.management.service;
 
-import com.wastewiase.worker_management.dto.WorkerCreateDTO;
-import com.wastewiase.worker_management.dto.WorkerDTO;
-import com.wastewiase.worker_management.dto.WorkerUpdateDTO;
-import com.wastewiase.worker_management.exception.WorkerNotFoundException;
-import com.wastewiase.worker_management.mapper.WorkerMapper;
-import com.wastewiase.worker_management.model.Worker;
-import com.wastewiase.worker_management.repository.WorkerRepository;
-import com.wastewiase.worker_management.utility.IdGenerator;
+import com.wastewiase.worker.management.dto.WorkerCreateDTO;
+import com.wastewiase.worker.management.dto.WorkerDTO;
+import com.wastewiase.worker.management.dto.WorkerUpdateDTO;
+import com.wastewiase.worker.management.exception.WorkerNotFoundException;
+import com.wastewiase.worker.management.mapper.WorkerMapper;
+import com.wastewiase.worker.management.model.Worker;
+import com.wastewiase.worker.management.repository.WorkerRepository;
+import com.wastewiase.worker.management.utility.IdGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -34,9 +34,10 @@ public class WorkerService {
      * Creates a new worker in the system.
      */
     public Worker createWorker(WorkerCreateDTO dto) {
-        log.info("Creating new worker: {}", dto.getName());
+        String id = idGenerator.generateWorkerId();
+        log.info("Creating new worker: {}", id);
         Worker worker = workerMapper.toEntity(dto);
-        worker.setWorkerId(idGenerator.generateWorkerId());
+        worker.setWorkerId(id);
         worker.setCreatedDate(new Date());
         return workerRepository.save(worker);
     }
@@ -54,6 +55,7 @@ public class WorkerService {
      * Retrieves all worker IDs.
      */
     public List<String> getWorkerIds() {
+        log.info("Retrieving list of all workers");
         return workerRepository.findAllWorkerId();
     }
 
@@ -61,6 +63,7 @@ public class WorkerService {
      * Retrieves all available worker IDs (based on status).
      */
     public List<String> getAllAvailableWorkerIds() {
+        log.info("Retrieving all the worker ids with status = AVAILABLE");
         return workerRepository.findWorkerIdAvailableStatus();
     }
 

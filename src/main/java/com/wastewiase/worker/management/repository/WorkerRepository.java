@@ -1,6 +1,6 @@
-package com.wastewiase.worker_management.repository;
+package com.wastewiase.worker.management.repository;
 
-import com.wastewiase.worker_management.model.Worker;
+import com.wastewiase.worker.management.model.Worker;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

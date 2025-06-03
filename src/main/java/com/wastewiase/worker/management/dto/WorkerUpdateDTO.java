@@ -1,8 +1,6 @@
-package com.wastewiase.worker_management.dto;
+package com.wastewiase.worker.management.dto;
 
-import com.wastewiase.worker_management.enums.WorkerStatus;
-
-import java.util.Date;
+import com.wastewiase.worker.management.enums.WorkerStatus;
 
 public class WorkerUpdateDTO {
     private String name;

@@ -1,4 +1,4 @@
-package com.wastewiase.worker_management.exception;
+package com.wastewiase.worker.management.exception;
 
 public class ResourceNotFoundException extends RuntimeException{
     public ResourceNotFoundException(String message) {

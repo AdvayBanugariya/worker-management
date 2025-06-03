@@ -1,4 +1,4 @@
-package com.wastewiase.worker_management.enums;
+package com.wastewiase.worker.management.enums;
 
 public enum WorkerStatus {
     AVAILABLE,OCCUPIED

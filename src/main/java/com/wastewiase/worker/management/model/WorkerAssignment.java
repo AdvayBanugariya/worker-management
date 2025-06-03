@@ -1,6 +1,6 @@
-package com.wastewiase.worker_management.model;
+package com.wastewiase.worker.management.model;
 
-import com.wastewiase.worker_management.enums.Shift;
+import com.wastewiase.worker.management.enums.Shift;
 import jakarta.persistence.*;
 
 import java.util.Date;

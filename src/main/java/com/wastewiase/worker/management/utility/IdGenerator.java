@@ -1,6 +1,6 @@
-package com.wastewiase.worker_management.utility;
+package com.wastewiase.worker.management.utility;
 
-import com.wastewiase.worker_management.repository.WorkerRepository;
+import com.wastewiase.worker.management.repository.WorkerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

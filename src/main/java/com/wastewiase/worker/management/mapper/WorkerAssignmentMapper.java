@@ -1,7 +1,7 @@
-package com.wastewiase.worker_management.mapper;
+package com.wastewiase.worker.management.mapper;
 
-import com.wastewiase.worker_management.dto.WorkerAssignmentDTO;
-import com.wastewiase.worker_management.model.WorkerAssignment;
+import com.wastewiase.worker.management.dto.WorkerAssignmentDTO;
+import com.wastewiase.worker.management.model.WorkerAssignment;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

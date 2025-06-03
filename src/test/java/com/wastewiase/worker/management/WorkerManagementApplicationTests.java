@@ -1,4 +1,4 @@
-package com.wastewiase.worker_management;
+package com.wastewiase.worker.management;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

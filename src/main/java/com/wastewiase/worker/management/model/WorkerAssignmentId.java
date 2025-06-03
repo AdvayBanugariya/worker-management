@@ -1,4 +1,4 @@
-package com.wastewiase.worker_management.model;
+package com.wastewiase.worker.management.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

@@ -1,4 +1,4 @@
-package com.wastewiase.worker_management;
+package com.wastewiase.worker.management;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

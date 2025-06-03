@@ -1,4 +1,4 @@
-package com.wastewiase.worker_management.exception;
+package com.wastewiase.worker.management.exception;
 
 public class WorkerNotFoundException extends RuntimeException{
     public WorkerNotFoundException(String message) {
