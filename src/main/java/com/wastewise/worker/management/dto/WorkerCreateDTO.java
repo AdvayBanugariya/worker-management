@@ -1,9 +1,7 @@
 package com.wastewise.worker.management.dto;
 
 import com.wastewise.worker.management.enums.WorkerStatus;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+
 import lombok.Data;
 
 import java.util.Date;
