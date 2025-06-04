@@ -20,20 +20,13 @@ public class WorkerAssignmentController {
     /**
      * Deletes a worker assignment by assignmentId and workerId.
      */
-    @DeleteMapping
+    @DeleteMapping("/{assignmentId}")
     public ResponseEntity<String> deleteWorkerAssignment(
-            @RequestParam String assignmentId,
-            @RequestParam String workerId) {
-        String result = workerAssignmentService.deleteWorkerAssignment(assignmentId, workerId);
+            @PathVariable String assignmentId) {
+        String result = workerAssignmentService.deleteWorkerAssignment(assignmentId);
         return ResponseEntity.ok(result);
     }
 
-
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<String> handleResourceNotFound(ResourceNotFoundException ex) {
-        String errorMessage = String.format("Error: %s (Status: %d)", ex.getMessage(), HttpStatus.NOT_FOUND.value());
-        return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
-    }
 
 
 }

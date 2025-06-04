@@ -7,6 +7,7 @@ import com.wastewise.worker.management.exception.WorkerNotFoundException;
 import com.wastewise.worker.management.model.Worker;
 import com.wastewise.worker.management.service.WorkerService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.http.ResponseEntity;
@@ -39,7 +40,7 @@ public class WorkerController {
 
     @GetMapping("/ids")
     public ResponseEntity<List<String>> getAllWorkerIds() {
-        return ResponseEntity.ok(workerService.getWorkerIds());
+        return new ResponseEntity<>(workerService.getWorkerIds(), HttpStatus.OK);
     }
 
     @GetMapping("/ids/available")

@@ -1,10 +1,9 @@
 package com.wastewise.worker.management.dto;
 
 import com.wastewise.worker.management.enums.WorkerStatus;
-
 import lombok.Data;
+import java.time.LocalDateTime;
 
-import java.util.Date;
 @Data
 public class WorkerCreateDTO {
     private String name;
@@ -13,5 +12,5 @@ public class WorkerCreateDTO {
     private String roleId;
     private String createdBy;
     private WorkerStatus workerStatus;
-    private Date createdDate;
+    private LocalDateTime createdDate;
 }

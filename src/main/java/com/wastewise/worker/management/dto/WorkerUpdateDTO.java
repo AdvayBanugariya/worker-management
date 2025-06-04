@@ -3,7 +3,7 @@ package com.wastewise.worker.management.dto;
 import com.wastewise.worker.management.enums.WorkerStatus;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 public class WorkerUpdateDTO {
@@ -13,5 +13,5 @@ public class WorkerUpdateDTO {
     private String roleId;
     private String updatedBy;
     private WorkerStatus workerStatus;
-    private Date updatedDate;
+    private LocalDateTime updatedDate;
 }

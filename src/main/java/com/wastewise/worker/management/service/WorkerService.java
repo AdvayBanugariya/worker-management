@@ -11,6 +11,7 @@ import com.wastewise.worker.management.utility.IdGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -37,15 +38,18 @@ public class WorkerService {
      * @returns worker
      */
     public Worker createWorker(WorkerCreateDTO dto) {
-        log.info("Creating new worker: {}", idGenerator.generateWorkerId());
+        String id = idGenerator.generateWorkerId();
+        log.info("Creating new worker: {}", id);
         Worker worker = workerMapper.toEntity(dto);
-        worker.setWorkerId(idGenerator.generateWorkerId());
-        worker.setCreatedDate(new Date());
+        worker.setWorkerId(id);
+        worker.setCreatedDate(LocalDateTime.now());
         return workerRepository.save(worker);
     }
 
     /**
      * Retrieves a worker by ID.
+     *
+     * @Returns worker
      */
     public WorkerDTO getWorker(String id) throws WorkerNotFoundException {
         Worker worker = workerRepository.findById(id)
@@ -80,7 +84,8 @@ public class WorkerService {
         Worker worker = workerRepository.findById(id)
                 .orElseThrow(() -> new WorkerNotFoundException("Worker with id " + id + " does not exist"));
         workerMapper.updateWorkerFromDTO(dto, worker);
-        worker.setUpdatedDate(new Date());
+        worker.setUpdatedDate(LocalDateTime.now());
+        workerRepository.save(worker);
         return dto;
     }
 }
