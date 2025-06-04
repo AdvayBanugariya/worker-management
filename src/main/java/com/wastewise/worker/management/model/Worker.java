@@ -40,7 +40,7 @@ public class Worker {
     @Column(name = "updated_date")
     private Date updatedDate;
 
-    public Worker(){};
+    public Worker(){}
 
     public Worker(String workerId, String name,
                   String contactNumber, String contactEmail,

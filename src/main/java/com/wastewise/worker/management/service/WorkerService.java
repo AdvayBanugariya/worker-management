@@ -32,10 +32,12 @@ public class WorkerService {
     }
 
     /**
-     * Creates a new worker in the system.
+     * Creates a new worker in the system, takes dto of workerCreateDTO
+     * @param dto
+     * @returns worker
      */
     public Worker createWorker(WorkerCreateDTO dto) {
-        log.info("Creating new worker: {}", dto.getName());
+        log.info("Creating new worker: {}", idGenerator.generateWorkerId());
         Worker worker = workerMapper.toEntity(dto);
         worker.setWorkerId(idGenerator.generateWorkerId());
         worker.setCreatedDate(new Date());
@@ -53,6 +55,8 @@ public class WorkerService {
 
     /**
      * Retrieves all worker IDs.
+     *
+     * @returns list of all worker Ids
      */
     public List<String> getWorkerIds() {
         return workerRepository.findAllWorkerId();
@@ -60,6 +64,8 @@ public class WorkerService {
 
     /**
      * Retrieves all available worker IDs (based on status).
+     *
+     * @returns list of all workers with status = "Available"
      */
     public List<String> getAllAvailableWorkerIds() {
         return workerRepository.findWorkerIdAvailableStatus();
@@ -67,6 +73,8 @@ public class WorkerService {
 
     /**
      * Updates an existing worker's information.
+     *
+     * @returns dto of WorkerUpdateDTO
      */
     public WorkerUpdateDTO updateWorker(String id, WorkerUpdateDTO dto) throws WorkerNotFoundException {
         Worker worker = workerRepository.findById(id)
