@@ -28,6 +28,13 @@ public class WorkerAssignmentService implements com.wastewise.worker.management.
         this.workerRepository = workerRepository;
     }
 
+    /**
+     *
+     * @param assignmentId
+     * @param workerId
+     * @return
+     * @throws WorkerNotFoundException
+     */
     @Transactional
     public String assignWorkertoAssignment(String assignmentId, String workerId) throws WorkerNotFoundException {
         // Step 1: Fetch the worker
@@ -59,46 +66,117 @@ public class WorkerAssignmentService implements com.wastewise.worker.management.
      */
 
     @Transactional
-    public String updateWorkerAssignment(String assignmentId, String newWorkerId) {
-        List<WorkerAssignment> assignments = workerAssignmentRepository.findByAssignmentId(assignmentId);
+    public String updateSingleWorkerAssignment(String assignmentId, String oldWorkerId, String newWorkerId) {
+        WorkerAssignmentId oldId = new WorkerAssignmentId(assignmentId, oldWorkerId);
+        WorkerAssignmentId newId = new WorkerAssignmentId(assignmentId, newWorkerId);
 
-        if (assignments.isEmpty()) {
-            throw new ResourceNotFoundException("No assignment found with ID: " + assignmentId);
+        if (!workerAssignmentRepository.existsById(oldId)) {
+            throw new ResourceNotFoundException("Old worker is not assigned to this assignment");
         }
-
-        String oldWorkerId = assignments.get(0).getId().getWorkerId();
-
-        if (oldWorkerId.equals(newWorkerId)) {
+        if (workerAssignmentRepository.existsById(newId)) {
             throw new IllegalStateException("New worker is already assigned to this assignment");
         }
-
-        Worker oldWorker = workerRepository.findById(oldWorkerId)
-                .orElseThrow(() -> new WorkerNotFoundException("Old worker not found: " + oldWorkerId));
-
         Worker newWorker = workerRepository.findById(newWorkerId)
-                .orElseThrow(() -> new WorkerNotFoundException("New worker not found: " + newWorkerId));
+                .orElseThrow(() -> new WorkerNotFoundException("New worker not found"));
 
         if (newWorker.getWorkerStatus() != WorkerStatus.AVAILABLE) {
-            throw new IllegalStateException("New worker is not available for assignment");
+            throw new IllegalStateException("Worker is not available");
         }
 
-        workerAssignmentRepository.deleteAll(assignments);
-
+        workerAssignmentRepository.deleteById(oldId);
         WorkerAssignment newAssignment = new WorkerAssignment();
-        newAssignment.setId(new WorkerAssignmentId(assignmentId, newWorkerId));
+        newAssignment.setId(newId);
         newAssignment.setCreatedDate(LocalDateTime.now());
         workerAssignmentRepository.save(newAssignment);
+
+        Worker oldWorker = workerRepository.findById(oldWorkerId)
+                .orElseThrow(() -> new WorkerNotFoundException("Old worker not found"));
 
         oldWorker.setWorkerStatus(WorkerStatus.AVAILABLE);
         newWorker.setWorkerStatus(WorkerStatus.OCCUPIED);
         workerRepository.saveAll(List.of(oldWorker, newWorker));
 
-        log.info("Reassigned assignment {} from worker {} to worker {}", assignmentId, oldWorkerId, newWorkerId);
-        return "Worker assignment updated and statuses changed successfully";
+        return "Worker assignment updated successfully";
+    }
+
+    /**
+     *
+     * @param assignmentId
+     * @param oldWorkerId1
+     * @param oldWorkerId2
+     * @param newWorkerId1
+     * @param newWorkerId2
+     * @return
+     */
+
+    @Transactional
+    public String updateBothWorkerAssignments(String assignmentId,
+                                              String oldWorkerId1, String oldWorkerId2,
+                                              String newWorkerId1, String newWorkerId2) {
+        List<WorkerAssignmentId> oldIds = List.of(
+                new WorkerAssignmentId(assignmentId, oldWorkerId1),
+                new WorkerAssignmentId(assignmentId, oldWorkerId2)
+        );
+
+        for (WorkerAssignmentId id : oldIds) {
+            if (!workerAssignmentRepository.existsById(id)) {
+                throw new ResourceNotFoundException("Assignment not found for worker: " + id.getWorkerId());
+            }
+        }
+
+         List<String> newWorkerIds = List.of(newWorkerId1, newWorkerId2);
+        List<Worker> newWorkers = workerRepository.findAllById(newWorkerIds);
+
+        if (newWorkers.size() != 2) {
+            throw new WorkerNotFoundException("One or both new workers not found");
+        }
+
+        for (Worker w : newWorkers) {
+            if (w.getWorkerStatus() != WorkerStatus.AVAILABLE) {
+                throw new IllegalStateException("Worker " + w.getWorkerId() + " is not available");
+            }
+        }
+
+        // Delete old assignments
+        workerAssignmentRepository.deleteAllById(oldIds);
+
+        // Create new assignments
+        List<WorkerAssignment> newAssignments = newWorkerIds.stream()
+                .map(workerId -> {
+                    WorkerAssignment assignment = new WorkerAssignment();
+                    assignment.setId(new WorkerAssignmentId(assignmentId, workerId));
+                    assignment.setCreatedDate(LocalDateTime.now());
+                    return assignment;
+                }).toList();
+
+        workerAssignmentRepository.saveAll(newAssignments);
+
+        // Update statuses
+        List<String> oldWorkerIds = List.of(oldWorkerId1, oldWorkerId2);
+        List<Worker> oldWorkers = workerRepository.findAllById(oldWorkerIds);
+
+        for (Worker w : oldWorkers) {
+            w.setWorkerStatus(WorkerStatus.AVAILABLE);
+        }
+        for (Worker w : newWorkers) {
+            w.setWorkerStatus(WorkerStatus.OCCUPIED);
+        }
+
+        workerRepository.saveAll(oldWorkers);
+        workerRepository.saveAll(newWorkers);
+
+        log.info("Reassigned assignment {} from workers {} and {} to {} and {}",
+                assignmentId, oldWorkerId1, oldWorkerId2, newWorkerId1, newWorkerId2);
+
+        return "Both worker assignments updated successfully";
     }
 
 
-
+    /**
+     *
+     * @param assignmentId
+     * @return
+     */
     @Transactional
     public String deleteWorkerAssignment(String assignmentId) {
         List<WorkerAssignment> assignments = workerAssignmentRepository.findByAssignmentId(assignmentId);
@@ -126,9 +204,4 @@ public class WorkerAssignmentService implements com.wastewise.worker.management.
 
         return "Deleted assignments and updated worker statuses";
     }
-
-
-
-
-
 }
