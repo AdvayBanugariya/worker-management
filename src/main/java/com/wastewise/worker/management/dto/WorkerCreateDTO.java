@@ -12,5 +12,4 @@ public class WorkerCreateDTO {
     private String roleId;
     private String createdBy;
     private WorkerStatus workerStatus;
-    private LocalDateTime createdDate;
 }

@@ -3,12 +3,13 @@ package com.wastewise.worker.management.service;
 import com.wastewise.worker.management.dto.WorkerCreateDTO;
 import com.wastewise.worker.management.dto.WorkerDTO;
 import com.wastewise.worker.management.dto.WorkerUpdateDTO;
-import com.wastewise.worker.management.model.Worker;
 
 import java.util.List;
 
 public interface WorkerService {
-    Worker createWorker(WorkerCreateDTO dto);
+    String createWorker(WorkerCreateDTO dto);
+
+    List<WorkerDTO> getAllWorkers();
 
     WorkerDTO getWorker(String id);
 

@@ -25,10 +25,15 @@ public class WorkerController {
     }
 
     @PostMapping
-    public ResponseEntity<Worker> createWorker(@RequestBody WorkerCreateDTO dto) {
+    public ResponseEntity<String> createWorker(@RequestBody WorkerCreateDTO dto) {
         log.info("Creating a new worker profile");
-        Worker createdWorker = workerService.createWorker(dto);
-        return ResponseEntity.ok(createdWorker);
+        return ResponseEntity.ok(workerService.createWorker(dto));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<WorkerDTO>> findAllWorkers(){
+        log.info("Fetching all the workers");
+        return ResponseEntity.ok(workerService.getAllWorkers());
     }
 
     @GetMapping("/{id}")
