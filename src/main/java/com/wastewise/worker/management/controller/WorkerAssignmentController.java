@@ -1,10 +1,7 @@
 package com.wastewise.worker.management.controller;
 
-import com.wastewise.worker.management.exception.ResourceNotFoundException;
-import com.wastewise.worker.management.service.WorkerAssignmentService;
-import org.springframework.http.HttpStatus;
+import com.wastewise.worker.management.service.serviceimpl.WorkerAssignmentService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
