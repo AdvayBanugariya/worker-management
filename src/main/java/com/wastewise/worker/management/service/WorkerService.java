@@ -17,6 +17,6 @@ public interface WorkerService {
 
     List<String> getAllAvailableWorkerIds();
 
-    WorkerUpdateDTO updateWorker(String id, WorkerUpdateDTO dto);
+    String updateWorker(String id, WorkerUpdateDTO dto);
 
 }

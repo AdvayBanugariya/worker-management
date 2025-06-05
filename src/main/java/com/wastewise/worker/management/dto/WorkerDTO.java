@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class WorkerDTO {
-    private String id;
+    private String workerId;
     private String name;
     private String contactNumber;
     private String contactEmail;

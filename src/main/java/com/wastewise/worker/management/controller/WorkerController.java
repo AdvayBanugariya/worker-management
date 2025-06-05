@@ -53,9 +53,8 @@ public class WorkerController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<WorkerUpdateDTO> updateWorker(@PathVariable String id,
+    public ResponseEntity<String> updateWorker(@PathVariable String id,
                                                         @RequestBody WorkerUpdateDTO dto) {
-        WorkerUpdateDTO updated = workerService.updateWorker(id, dto); // Exception handled globally
-        return ResponseEntity.ok(updated);
+        return ResponseEntity.ok(workerService.updateWorker(id, dto));
     }
 }

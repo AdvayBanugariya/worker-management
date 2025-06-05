@@ -11,7 +11,5 @@ public class WorkerUpdateDTO {
     private String contactNumber;
     private String contactEmail;
     private String roleId;
-    private String updatedBy;
     private WorkerStatus workerStatus;
-    private LocalDateTime updatedDate;
 }

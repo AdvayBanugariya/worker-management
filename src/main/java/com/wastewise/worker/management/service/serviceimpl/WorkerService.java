@@ -88,12 +88,12 @@ public class WorkerService implements com.wastewise.worker.management.service.Wo
      *
      * @returns dto of WorkerUpdateDTO
      */
-    public WorkerUpdateDTO updateWorker(String id, WorkerUpdateDTO dto) throws WorkerNotFoundException {
+    public String updateWorker(String id, WorkerUpdateDTO dto) throws WorkerNotFoundException {
         Worker worker = workerRepository.findById(id)
                 .orElseThrow(() -> new WorkerNotFoundException("Worker with id " + id + " does not exist"));
         workerMapper.updateWorkerFromDTO(dto, worker);
         worker.setUpdatedDate(LocalDateTime.now());
         workerRepository.save(worker);
-        return dto;
+        return "Updated worker with id "+worker.getWorkerId();
     }
 }

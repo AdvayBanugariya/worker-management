@@ -13,6 +13,7 @@ public interface WorkerMapper {
 
     Worker toEntity(WorkerCreateDTO dto);
 
+    @Mapping(source = "workerId", target = "workerId")
     WorkerDTO toDTO(Worker entity);
 
     @Mapping(target = "workerId", ignore = true)

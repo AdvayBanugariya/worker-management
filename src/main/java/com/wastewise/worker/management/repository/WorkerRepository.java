@@ -16,6 +16,6 @@ public interface WorkerRepository extends JpaRepository<Worker,String> {
     @Query("Select w.workerId from Worker w")
     List<String> findAllWorkerId();
 
-    @Query("Select w.workerId from Worker w WHERE w.workerStatus = 'available'")
+    @Query("Select w.workerId from Worker w WHERE w.workerStatus = 'available' AND w.roleId = '003'")
     List<String> findWorkerIdAvailableStatus();
 }
