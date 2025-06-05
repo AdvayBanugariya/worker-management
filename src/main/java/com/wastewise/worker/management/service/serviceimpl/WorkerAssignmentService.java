@@ -174,15 +174,15 @@ public class WorkerAssignmentService implements com.wastewise.worker.management.
 
     /**
      *
-     * @param assignmentId
+     * @param id
      * @return
      */
     @Transactional
-    public String deleteWorkerAssignment(String assignmentId) {
-        List<WorkerAssignment> assignments = workerAssignmentRepository.findByAssignmentId(assignmentId);
+    public String deleteWorkerAssignment(String id) {
+        List<WorkerAssignment> assignments = workerAssignmentRepository.findByIdAssignmentId(id);
 
         if (assignments.isEmpty()) {
-            throw new ResourceNotFoundException("No assignments found for assignmentId: " + assignmentId);
+            throw new ResourceNotFoundException("No assignments found for assignmentId: " + id);
         }
 
         // Collect all worker IDs linked to this assignment
@@ -192,7 +192,7 @@ public class WorkerAssignmentService implements com.wastewise.worker.management.
 
         // Delete all assignments with the given assignmentId
         workerAssignmentRepository.deleteAll(assignments);
-        log.info("Deleted all assignments with assignmentId {}", assignmentId);
+        log.info("Deleted all assignments with assignmentId {}", id);
 
         // Update status of all involved workers
         List<Worker> workers = workerRepository.findAllById(workerIds);

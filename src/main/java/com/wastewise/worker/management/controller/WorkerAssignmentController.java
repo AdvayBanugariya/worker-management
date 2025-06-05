@@ -16,13 +16,13 @@ public class WorkerAssignmentController {
 
     /**
      * Deletes assignment and updates the status of the workers
-     * @param assignmentId
+     * @param id
      * @returns
      */
-    @DeleteMapping("/{assignmentId}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteWorkerAssignment(
-            @PathVariable String assignmentId) {
-        String result = workerAssignmentService.deleteWorkerAssignment(assignmentId);
+            @PathVariable String id) {
+        String result = workerAssignmentService.deleteWorkerAssignment(id);
         return ResponseEntity.ok(result);
     }
 
