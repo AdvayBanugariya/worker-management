@@ -42,6 +42,28 @@ public class WorkerAssignmentController {
         return ResponseEntity.ok(result);
     }
 
+    /**
+     *
+     * @param assignmentId
+     * @param oldWorkerId1
+     * @param oldWorkerId2
+     * @param newWorkerId1
+     * @param newWorkerId2
+     * @return
+     */
+    @PutMapping("/update/{assignmentId}/{oldWorkerId1}/{oldWorkerId2}/{newWorkerId1}/{newWorkerId2}")
+    public ResponseEntity<String> updateBothWorkerAssignments(
+            @PathVariable String assignmentId,
+            @PathVariable String oldWorkerId1,
+            @PathVariable String oldWorkerId2,
+            @PathVariable String newWorkerId1,
+            @PathVariable String newWorkerId2) {
+
+        String result = workerAssignmentService.updateBothWorkerAssignments(
+                assignmentId, oldWorkerId1, oldWorkerId2, newWorkerId1, newWorkerId2
+        );
+        return ResponseEntity.ok(result);
+    }
 
 
     /**
