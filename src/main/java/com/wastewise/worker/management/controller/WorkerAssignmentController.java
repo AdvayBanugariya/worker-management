@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/wastewise/admin?dashboard/worker-assignments")
+@RequestMapping("/wastewise/admin/worker-assignments")
 public class WorkerAssignmentController {
 
     private final WorkerAssignmentService workerAssignmentService;
@@ -15,7 +15,9 @@ public class WorkerAssignmentController {
     }
 
     /**
-     * Deletes a worker assignment by assignmentId and workerId.
+     * Deletes assignment and updates the status of the workers
+     * @param assignmentId
+     * @returns
      */
     @DeleteMapping("/{assignmentId}")
     public ResponseEntity<String> deleteWorkerAssignment(
@@ -24,6 +26,33 @@ public class WorkerAssignmentController {
         return ResponseEntity.ok(result);
     }
 
+    /**
+     * updates worker assignment by changing the worker assigned to that assignment
+     * @param assignmentId
+     * @param newWorkerId
+     * @return
+     */
+    @PutMapping("/update/{assignmentId}/worker/{newWorkerId}")
+    public ResponseEntity<String> updateWorkerAssignment(
+            @PathVariable String assignmentId,
+            @PathVariable String newWorkerId) {
+        String result = workerAssignmentService.updateWorkerAssignment(assignmentId, newWorkerId);
+        return ResponseEntity.ok(result);
+    }
 
+
+    /**
+     * Assigns worker to assignment
+     * @param assignmentId
+     * @param workerId
+     * @return
+     */
+    @PostMapping("/assign/{assignmentId}/{workerId}")
+    public ResponseEntity<String> assignWorkerToAssignment(
+            @PathVariable String assignmentId,
+            @PathVariable String workerId) {
+        String result = workerAssignmentService.assignWorkertoAssignment(assignmentId, workerId);
+        return ResponseEntity.ok(result);
+    }
 
 }

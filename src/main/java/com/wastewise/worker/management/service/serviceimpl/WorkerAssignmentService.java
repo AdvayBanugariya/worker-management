@@ -51,6 +51,53 @@ public class WorkerAssignmentService implements com.wastewise.worker.management.
         return "Worker assigned successfully";
     }
 
+    /**
+     * Updating an assignment by changing assigned worker to the assignment. Also updates their status
+     * @param assignmentId
+     * @param newWorkerId
+     * @return
+     */
+
+    @Transactional
+    public String updateWorkerAssignment(String assignmentId, String newWorkerId) {
+        List<WorkerAssignment> assignments = workerAssignmentRepository.findByAssignmentId(assignmentId);
+
+        if (assignments.isEmpty()) {
+            throw new ResourceNotFoundException("No assignment found with ID: " + assignmentId);
+        }
+
+        String oldWorkerId = assignments.get(0).getId().getWorkerId();
+
+        if (oldWorkerId.equals(newWorkerId)) {
+            throw new IllegalStateException("New worker is already assigned to this assignment");
+        }
+
+        Worker oldWorker = workerRepository.findById(oldWorkerId)
+                .orElseThrow(() -> new WorkerNotFoundException("Old worker not found: " + oldWorkerId));
+
+        Worker newWorker = workerRepository.findById(newWorkerId)
+                .orElseThrow(() -> new WorkerNotFoundException("New worker not found: " + newWorkerId));
+
+        if (newWorker.getWorkerStatus() != WorkerStatus.AVAILABLE) {
+            throw new IllegalStateException("New worker is not available for assignment");
+        }
+
+        workerAssignmentRepository.deleteAll(assignments);
+
+        WorkerAssignment newAssignment = new WorkerAssignment();
+        newAssignment.setId(new WorkerAssignmentId(assignmentId, newWorkerId));
+        newAssignment.setCreatedDate(LocalDateTime.now());
+        workerAssignmentRepository.save(newAssignment);
+
+        oldWorker.setWorkerStatus(WorkerStatus.AVAILABLE);
+        newWorker.setWorkerStatus(WorkerStatus.OCCUPIED);
+        workerRepository.saveAll(List.of(oldWorker, newWorker));
+
+        log.info("Reassigned assignment {} from worker {} to worker {}", assignmentId, oldWorkerId, newWorkerId);
+        return "Worker assignment updated and statuses changed successfully";
+    }
+
+
 
     @Transactional
     public String deleteWorkerAssignment(String assignmentId) {

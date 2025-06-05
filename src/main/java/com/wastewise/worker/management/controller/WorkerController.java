@@ -15,7 +15,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/wastewise/admin/dashboard/workers")
+@RequestMapping("/wastewise/admin/workers")
 public class WorkerController {
 
     private final WorkerService workerService;
