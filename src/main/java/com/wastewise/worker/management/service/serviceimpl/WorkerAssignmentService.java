@@ -1,8 +1,10 @@
 package com.wastewise.worker.management.service.serviceimpl;
 
+import com.wastewise.worker.management.dto.WorkerAssignmentDTO;
 import com.wastewise.worker.management.enums.WorkerStatus;
 import com.wastewise.worker.management.exception.ResourceNotFoundException;
 import com.wastewise.worker.management.exception.WorkerNotFoundException;
+import com.wastewise.worker.management.exception.WorkersAlreadyAssignedException;
 import com.wastewise.worker.management.model.Worker;
 import com.wastewise.worker.management.model.WorkerAssignment;
 import com.wastewise.worker.management.model.WorkerAssignmentId;
@@ -36,8 +38,11 @@ public class WorkerAssignmentService implements com.wastewise.worker.management.
      * @throws WorkerNotFoundException
      */
     @Transactional
-    public String assignWorkertoAssignment(String assignmentId, String workerId) throws WorkerNotFoundException {
+    public String assignWorkertoAssignment(String assignmentId, String workerId, WorkerAssignmentDTO dto) throws WorkerNotFoundException, WorkersAlreadyAssignedException {
         // Step 1: Fetch the worker
+        if(workerAssignmentRepository.findByIdAssignmentId(assignmentId).size()>=2){
+            throw new WorkersAlreadyAssignedException("The assignment has already two workers assigned to it, please update the assignment instead of assigning any new worker");
+        }
         Worker worker = workerRepository.findById(workerId)
                 .orElseThrow(() -> new WorkerNotFoundException("Worker not found with ID: " + workerId));
 
@@ -47,7 +52,11 @@ public class WorkerAssignmentService implements com.wastewise.worker.management.
 
         WorkerAssignment assignment = new WorkerAssignment();
         assignment.setId(new WorkerAssignmentId(assignmentId, workerId));
+        assignment.setWorker(worker);
         assignment.setCreatedDate(LocalDateTime.now());
+        assignment.setRouteId(dto.getRouteId());
+        assignment.setZoneId(dto.getZoneId());
+        assignment.setShift(dto.getShift());
 
         workerAssignmentRepository.save(assignment);
 
@@ -82,11 +91,18 @@ public class WorkerAssignmentService implements com.wastewise.worker.management.
         if (newWorker.getWorkerStatus() != WorkerStatus.AVAILABLE) {
             throw new IllegalStateException("Worker is not available");
         }
-
+        WorkerAssignment oldWorkerAssignment =  workerAssignmentRepository.findById(oldId)
+                .orElseThrow(() -> new ResourceNotFoundException("Worker assignment does not exist"));
         workerAssignmentRepository.deleteById(oldId);
         WorkerAssignment newAssignment = new WorkerAssignment();
+        newAssignment.setWorker(newWorker);
         newAssignment.setId(newId);
         newAssignment.setCreatedDate(LocalDateTime.now());
+        newAssignment.setZoneId(oldWorkerAssignment.getZoneId());
+        newAssignment.setRouteId(oldWorkerAssignment.getRouteId());
+        newAssignment.setCreatedDate(oldWorkerAssignment.getCreatedDate());
+        newAssignment.setCreatedBy(oldWorkerAssignment.getCreatedBy());
+        newAssignment.setShift(oldWorkerAssignment.getShift());
         workerAssignmentRepository.save(newAssignment);
 
         Worker oldWorker = workerRepository.findById(oldWorkerId)
@@ -174,15 +190,15 @@ public class WorkerAssignmentService implements com.wastewise.worker.management.
 
     /**
      *
-     * @param id
-     * @return
+     * @param assignmentId
+     * @return String message indicating the successful deletion of tuple and changing of status of workers
      */
     @Transactional
-    public String deleteWorkerAssignment(String id) {
-        List<WorkerAssignment> assignments = workerAssignmentRepository.findByIdAssignmentId(id);
+    public String deleteWorkerAssignment(String assignmentId) {
+        List<WorkerAssignment> assignments = workerAssignmentRepository.findByIdAssignmentId(assignmentId);
 
         if (assignments.isEmpty()) {
-            throw new ResourceNotFoundException("No assignments found for assignmentId: " + id);
+            throw new ResourceNotFoundException("No assignments found for assignmentId: " + assignmentId);
         }
 
         // Collect all worker IDs linked to this assignment
@@ -190,14 +206,12 @@ public class WorkerAssignmentService implements com.wastewise.worker.management.
                 .map(a -> a.getId().getWorkerId()) // assuming @EmbeddedId
                 .collect(Collectors.toList());
 
-        // Delete all assignments with the given assignmentId
         workerAssignmentRepository.deleteAll(assignments);
-        log.info("Deleted all assignments with assignmentId {}", id);
+        log.info("Deleted all assignments with assignmentId {}", assignmentId);
 
-        // Update status of all involved workers
         List<Worker> workers = workerRepository.findAllById(workerIds);
         for (Worker worker : workers) {
-            worker.setWorkerStatus(WorkerStatus.OCCUPIED);
+            worker.setWorkerStatus(WorkerStatus.AVAILABLE);
         }
         workerRepository.saveAll(workers);
         log.info("Updated {} workers to status OCCUPIED", workers.size());

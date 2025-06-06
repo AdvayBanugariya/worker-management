@@ -22,6 +22,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(WorkersAlreadyAssignedException.class)
+    public ResponseEntity<String> handleWorkersAlreadyAssignedException(WorkersAlreadyAssignedException ex){
+        String errorMessage = String.format("Error: %s (Status: %d)", ex.getMessage(), HttpStatus.CONFLICT.value());
+        return new ResponseEntity<>(errorMessage,HttpStatus.CONFLICT);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleGenericException(Exception ex) {
         String errorMessage = String.format("Unexpected error occurred: %s (Status: % " +

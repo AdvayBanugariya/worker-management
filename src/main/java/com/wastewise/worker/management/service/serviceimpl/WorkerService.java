@@ -3,6 +3,7 @@ package com.wastewise.worker.management.service.serviceimpl;
 import com.wastewise.worker.management.dto.WorkerCreateDTO;
 import com.wastewise.worker.management.dto.WorkerDTO;
 import com.wastewise.worker.management.dto.WorkerUpdateDTO;
+import com.wastewise.worker.management.enums.WorkerStatus;
 import com.wastewise.worker.management.exception.WorkerNotFoundException;
 import com.wastewise.worker.management.mapper.WorkerMapper;
 import com.wastewise.worker.management.model.Worker;
@@ -57,7 +58,7 @@ public class WorkerService implements com.wastewise.worker.management.service.Wo
     /**
      * Retrieves a worker by ID.
      *
-     * @Returns worker
+     * @return workerDTO object that is consist of worker id, name, contact details, status and roleId
      */
     public WorkerDTO getWorker(String id) throws WorkerNotFoundException {
         Worker worker = workerRepository.findById(id)
@@ -68,7 +69,7 @@ public class WorkerService implements com.wastewise.worker.management.service.Wo
     /**
      * Retrieves all worker IDs.
      *
-     * @returns list of all worker Ids
+     * @return list of all worker Ids
      */
     public List<String> getWorkerIds() {
         return workerRepository.findAllWorkerId();
@@ -77,7 +78,7 @@ public class WorkerService implements com.wastewise.worker.management.service.Wo
     /**
      * Retrieves all available worker IDs (based on status).
      *
-     * @returns list of all workers with status = "Available"
+     * @return list of all workers with status = "Available"
      */
     public List<String> getAllAvailableWorkerIds() {
         return workerRepository.findWorkerIdAvailableStatus();
@@ -86,7 +87,7 @@ public class WorkerService implements com.wastewise.worker.management.service.Wo
     /**
      * Updates an existing worker's information.
      *
-     * @returns dto of WorkerUpdateDTO
+     * @return dto of WorkerUpdateDTO
      */
     public String updateWorker(String id, WorkerUpdateDTO dto) throws WorkerNotFoundException {
         Worker worker = workerRepository.findById(id)
@@ -95,5 +96,14 @@ public class WorkerService implements com.wastewise.worker.management.service.Wo
         worker.setUpdatedDate(LocalDateTime.now());
         workerRepository.save(worker);
         return "Updated worker with id "+worker.getWorkerId();
+    }
+
+    public String changeWorkerStatus(String id, WorkerStatus workerStatus){
+        Worker worker = workerRepository.findById(id)
+                .orElseThrow(() -> new WorkerNotFoundException("Worker with id " + id + " does not exist"));
+        worker.setWorkerStatus(workerStatus);
+        workerRepository.save(worker);
+
+        return "Status of worker with id "+ id + " changes successfully";
     }
 }

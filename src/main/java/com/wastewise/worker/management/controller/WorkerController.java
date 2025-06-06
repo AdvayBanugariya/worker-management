@@ -3,6 +3,7 @@ package com.wastewise.worker.management.controller;
 import com.wastewise.worker.management.dto.WorkerCreateDTO;
 import com.wastewise.worker.management.dto.WorkerDTO;
 import com.wastewise.worker.management.dto.WorkerUpdateDTO;
+import com.wastewise.worker.management.enums.WorkerStatus;
 import com.wastewise.worker.management.model.Worker;
 import com.wastewise.worker.management.service.serviceimpl.WorkerService;
 import lombok.extern.slf4j.Slf4j;
@@ -56,5 +57,10 @@ public class WorkerController {
     public ResponseEntity<String> updateWorker(@PathVariable String id,
                                                         @RequestBody WorkerUpdateDTO dto) {
         return ResponseEntity.ok(workerService.updateWorker(id, dto));
+    }
+
+    @PutMapping("/status/{workerId}")
+    public ResponseEntity<String> updatWorkerStatus(@PathVariable String workerId, @RequestBody WorkerStatus workerStatus){
+        return ResponseEntity.ok(workerService.changeWorkerStatus(workerId, workerStatus));
     }
 }

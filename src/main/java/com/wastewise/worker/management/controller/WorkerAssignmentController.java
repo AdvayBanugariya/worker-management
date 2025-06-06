@@ -1,5 +1,6 @@
 package com.wastewise.worker.management.controller;
 
+import com.wastewise.worker.management.dto.WorkerAssignmentDTO;
 import com.wastewise.worker.management.service.serviceimpl.WorkerAssignmentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,25 +14,29 @@ public class WorkerAssignmentController {
     public WorkerAssignmentController(WorkerAssignmentService workerAssignmentService) {
         this.workerAssignmentService = workerAssignmentService;
     }
-
     /**
-     * Deletes assignment and updates the status of the workers
-     * @param id
-     * @returns
+     * Assigns worker to assignment
+     * @param assignmentId assignmentId of the assignment
+     * @param workerId workerId of the available worker
+     * @return String indicating successful creation of tuple
      */
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteWorkerAssignment(
-            @PathVariable String id) {
-        String result = workerAssignmentService.deleteWorkerAssignment(id);
+    @PostMapping("/{assignmentId}/{workerId}")
+    public ResponseEntity<String> assignWorkerToAssignment(
+            @PathVariable String assignmentId,
+            @PathVariable String workerId,
+    @RequestBody WorkerAssignmentDTO dto) {
+        String result = workerAssignmentService.assignWorkertoAssignment(assignmentId, workerId, dto);
         return ResponseEntity.ok(result);
     }
 
+
+
     /**
      *
-     * @param assignmentId
-     * @param oldWorkerId
-     * @param newWorkerId
-     * @return
+     * @param assignmentId of the assignment to which new worker needs to he assigned
+     * @param oldWorkerId of the worker who is already assigned to the task
+     * @param newWorkerId of the worker who is going to replace the old worker
+     * @return String stating that the update has been executed
      */
     @PutMapping("/update/{assignmentId}/{oldWorkerId}/{newWorkerId}")
     public ResponseEntity<String> updateWorkerAssignment(
@@ -65,19 +70,17 @@ public class WorkerAssignmentController {
         return ResponseEntity.ok(result);
     }
 
-
     /**
-     * Assigns worker to assignment
-     * @param assignmentId
-     * @param workerId
-     * @return
+     * Deletes assignment and updates the status of the workers
+     * @param assignmentId id of assignment related to which we need to delete the tuples of worker assignment
+     * @return string stating that the worker assignment is deleted
      */
-    @PostMapping("/assign/{assignmentId}/{workerId}")
-    public ResponseEntity<String> assignWorkerToAssignment(
-            @PathVariable String assignmentId,
-            @PathVariable String workerId) {
-        String result = workerAssignmentService.assignWorkertoAssignment(assignmentId, workerId);
+    @DeleteMapping("/{assignmentId}")
+    public ResponseEntity<String> deleteWorkerAssignment(
+            @PathVariable String assignmentId) {
+        String result = workerAssignmentService.deleteWorkerAssignment(assignmentId);
         return ResponseEntity.ok(result);
     }
+
 
 }

@@ -1,17 +1,17 @@
 package com.wastewise.worker.management.utility;
 
 import com.wastewise.worker.management.repository.WorkerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+@AllArgsConstructor
 @Component
 public class IdGenerator {
 
-    @Autowired
     private WorkerRepository workerRepository;
 
     public String generateWorkerId() {
         long count = workerRepository.countAll();
-        return String.format("%04d", count + 1);
+        return String.format("W%03d", count + 1);
     }
 }

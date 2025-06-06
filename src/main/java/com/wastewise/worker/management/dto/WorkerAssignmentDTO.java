@@ -10,5 +10,4 @@ public class WorkerAssignmentDTO {
     private String zoneId;
     private String routeId;
     private Shift shift;
-    private String createdBy;
 }

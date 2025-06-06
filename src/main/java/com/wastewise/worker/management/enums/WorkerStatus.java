@@ -1,5 +1,5 @@
 package com.wastewise.worker.management.enums;
 
 public enum WorkerStatus {
-    AVAILABLE,OCCUPIED
+    AVAILABLE,OCCUPIED,ABSENT
 }
