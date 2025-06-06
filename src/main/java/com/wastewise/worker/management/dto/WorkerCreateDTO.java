@@ -10,6 +10,5 @@ public class WorkerCreateDTO {
     private String contactNumber;
     private String contactEmail;
     private String roleId;
-    private String createdBy;
     private WorkerStatus workerStatus;
 }
