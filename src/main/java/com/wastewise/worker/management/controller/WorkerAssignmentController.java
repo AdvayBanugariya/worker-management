@@ -2,8 +2,11 @@ package com.wastewise.worker.management.controller;
 
 import com.wastewise.worker.management.dto.WorkerAssignmentDTO;
 import com.wastewise.worker.management.service.serviceimpl.WorkerAssignmentService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/wastewise/admin/worker-assignments")
@@ -14,18 +17,22 @@ public class WorkerAssignmentController {
     public WorkerAssignmentController(WorkerAssignmentService workerAssignmentService) {
         this.workerAssignmentService = workerAssignmentService;
     }
+
+    @GetMapping
+    public ResponseEntity<List<WorkerAssignmentDTO>> findAllWorkerAssignments(){
+        return new ResponseEntity<>(workerAssignmentService.findAllWorkerAssignments(), HttpStatus.FOUND);
+    }
+
     /**
      * Assigns worker to assignment
      * @param assignmentId assignmentId of the assignment
-     * @param workerId workerId of the available worker
      * @return String indicating successful creation of tuple
      */
-    @PostMapping("/{assignmentId}/{workerId}")
+    @PostMapping("/{assignmentId}")
     public ResponseEntity<String> assignWorkerToAssignment(
             @PathVariable String assignmentId,
-            @PathVariable String workerId,
     @RequestBody WorkerAssignmentDTO dto) {
-        String result = workerAssignmentService.assignWorkertoAssignment(assignmentId, workerId, dto);
+        String result = workerAssignmentService.assignWorkertoAssignment(assignmentId, dto.getWorkerId(), dto);
         return ResponseEntity.ok(result);
     }
 

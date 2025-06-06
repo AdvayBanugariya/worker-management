@@ -5,6 +5,7 @@ import com.wastewise.worker.management.enums.WorkerStatus;
 import com.wastewise.worker.management.exception.ResourceNotFoundException;
 import com.wastewise.worker.management.exception.WorkerNotFoundException;
 import com.wastewise.worker.management.exception.WorkersAlreadyAssignedException;
+import com.wastewise.worker.management.mapper.WorkerAssignmentMapper;
 import com.wastewise.worker.management.model.Worker;
 import com.wastewise.worker.management.model.WorkerAssignment;
 import com.wastewise.worker.management.model.WorkerAssignmentId;
@@ -23,11 +24,21 @@ import java.util.stream.Collectors;
 public class WorkerAssignmentService implements com.wastewise.worker.management.service.WorkerAssignmentService {
     private final WorkerAssignmentRepository workerAssignmentRepository;
 
+    private final WorkerAssignmentMapper workerAssignmentMapper;
+
     private final WorkerRepository workerRepository;
 
-    public WorkerAssignmentService(WorkerAssignmentRepository workerAssignmentRepository, WorkerRepository workerRepository){
+    public WorkerAssignmentService(WorkerAssignmentRepository workerAssignmentRepository, WorkerRepository workerRepository, WorkerAssignmentMapper workerAssignmentMapper){
         this.workerAssignmentRepository = workerAssignmentRepository;
         this.workerRepository = workerRepository;
+        this.workerAssignmentMapper = workerAssignmentMapper;
+    }
+
+    public List<WorkerAssignmentDTO> findAllWorkerAssignments(){
+        return workerAssignmentRepository.findAll()
+                .stream()
+                .map(workerAssignmentMapper::toDTO)
+                .toList();
     }
 
     /**

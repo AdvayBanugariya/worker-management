@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -36,7 +35,7 @@ public class WorkerService implements com.wastewise.worker.management.service.Wo
      * Creates a new worker in the system, takes dto of workerCreateDTO
      *
      * @param dto
-     * @returns worker
+     * @return worker
      */
     public String createWorker(WorkerCreateDTO dto) {
         String id = idGenerator.generateWorkerId();
@@ -52,7 +51,7 @@ public class WorkerService implements com.wastewise.worker.management.service.Wo
         return workerRepository.findAll()
                 .stream()
                 .map(workerMapper::toDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     /**
