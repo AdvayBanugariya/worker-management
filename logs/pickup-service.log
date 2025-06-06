@@ -1139,3 +1139,123 @@ java.util.UnknownFormatConversionException: Conversion = 'R'
 2025-06-06 14:39:06.412 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-06-06 14:39:06.423 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2025-06-06 14:39:06.443 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-06-06 14:59:25.180 [restartedMain] INFO  c.w.worker.management.Application - Starting Application using Java 21 with PID 22272 (C:\Users\2408482\Documents\worker.management\target\classes started by 2408482 in C:\Users\2408482\Documents\worker.management)
+2025-06-06 14:59:25.190 [restartedMain] INFO  c.w.worker.management.Application - No active profile set, falling back to 1 default profile: "default"
+2025-06-06 14:59:25.374 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-06-06 14:59:27.793 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-06 14:59:28.129 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 284 ms. Found 2 JPA repository interfaces.
+2025-06-06 14:59:28.551 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=bc192959-89ab-34bb-a1d0-cc99ca22b72a
+2025-06-06 14:59:29.755 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8086 (http)
+2025-06-06 14:59:29.795 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2025-06-06 14:59:29.795 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-06 14:59:29.795 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.41]
+2025-06-06 14:59:29.904 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-06 14:59:29.904 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 4530 ms
+2025-06-06 14:59:30.453 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-06 14:59:30.721 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.15.Final
+2025-06-06 14:59:30.800 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-06-06 14:59:31.589 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-06 14:59:31.734 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-06 14:59:32.356 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@38f2842f
+2025-06-06 14:59:32.370 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-06 14:59:32.464 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-06-06 14:59:32.464 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-06-06 14:59:32.543 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-06 14:59:34.263 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-06 14:59:34.388 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-06 14:59:35.127 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-06 14:59:37.083 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-06 14:59:37.272 [restartedMain] INFO  o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-06-06 14:59:38.683 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-06-06 14:59:38.867 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8086"]
+2025-06-06 14:59:38.926 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8086 (http) with context path '/'
+2025-06-06 14:59:38.958 [restartedMain] INFO  c.w.worker.management.Application - Started Application in 15.405 seconds (process running for 17.449)
+2025-06-06 14:59:47.694 [http-nio-8086-exec-3] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-06 14:59:47.694 [http-nio-8086-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-06-06 14:59:47.694 [http-nio-8086-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2025-06-06 14:59:48.110 [http-nio-8086-exec-3] INFO  c.w.w.m.s.s.WorkerAssignmentService - Assigned worker W003 to assignment A001
+2025-06-06 14:59:56.671 [http-nio-8086-exec-2] INFO  c.w.w.m.s.s.WorkerAssignmentService - Assigned worker W004 to assignment A001
+2025-06-06 15:01:00.417 [http-nio-8086-exec-5] INFO  c.w.w.m.controller.WorkerController - Creating a new worker profile
+2025-06-06 15:01:00.454 [http-nio-8086-exec-5] INFO  c.w.w.m.s.serviceimpl.WorkerService - Creating new worker: W005
+2025-06-06 15:01:31.612 [http-nio-8086-exec-6] INFO  c.w.w.m.controller.WorkerController - Creating a new worker profile
+2025-06-06 15:01:31.635 [http-nio-8086-exec-6] INFO  c.w.w.m.s.serviceimpl.WorkerService - Creating new worker: W006
+2025-06-06 15:02:00.038 [http-nio-8086-exec-7] INFO  c.w.w.m.controller.WorkerController - Creating a new worker profile
+2025-06-06 15:02:00.047 [http-nio-8086-exec-7] INFO  c.w.w.m.s.serviceimpl.WorkerService - Creating new worker: W007
+2025-06-06 15:02:26.017 [http-nio-8086-exec-8] INFO  c.w.w.m.controller.WorkerController - Creating a new worker profile
+2025-06-06 15:02:26.036 [http-nio-8086-exec-8] INFO  c.w.w.m.s.serviceimpl.WorkerService - Creating new worker: W008
+2025-06-06 15:02:33.287 [http-nio-8086-exec-9] INFO  c.w.w.m.controller.WorkerController - Fetching all the workers
+2025-06-06 15:08:13.291 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-06-06 15:08:13.305 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-06-06 15:08:13.316 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-06 15:08:13.329 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-06 15:08:13.356 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-06-06 15:42:04.178 [restartedMain] INFO  c.w.worker.management.Application - Starting Application using Java 21 with PID 10104 (C:\Users\2408482\Documents\worker.management\target\classes started by 2408482 in C:\Users\2408482\Documents\worker.management)
+2025-06-06 15:42:04.188 [restartedMain] INFO  c.w.worker.management.Application - No active profile set, falling back to 1 default profile: "default"
+2025-06-06 15:42:04.420 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-06-06 15:42:07.895 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-06 15:42:08.030 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 119 ms. Found 2 JPA repository interfaces.
+2025-06-06 15:42:08.522 [restartedMain] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=bc192959-89ab-34bb-a1d0-cc99ca22b72a
+2025-06-06 15:42:09.747 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8086 (http)
+2025-06-06 15:42:09.785 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8086"]
+2025-06-06 15:42:09.792 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-06 15:42:09.792 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.41]
+2025-06-06 15:42:09.914 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-06 15:42:09.916 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5494 ms
+2025-06-06 15:42:10.458 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-06 15:42:10.734 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.15.Final
+2025-06-06 15:42:10.829 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-06-06 15:42:11.368 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-06 15:42:11.455 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-06 15:42:12.299 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@9b826af
+2025-06-06 15:42:12.301 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-06 15:42:12.409 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-06-06 15:42:12.411 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-06-06 15:42:12.543 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-06-06 15:42:14.406 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-06 15:42:14.520 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-06 15:42:15.367 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-06 15:42:17.488 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-06 15:42:17.628 [restartedMain] INFO  o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-06-06 15:42:19.119 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-06-06 15:42:19.279 [restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8086"]
+2025-06-06 15:42:19.342 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8086 (http) with context path '/'
+2025-06-06 15:42:19.381 [restartedMain] INFO  c.w.worker.management.Application - Started Application in 16.683 seconds (process running for 18.683)
+2025-06-06 15:42:27.383 [http-nio-8086-exec-3] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-06 15:42:27.384 [http-nio-8086-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-06-06 15:42:27.401 [http-nio-8086-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 17 ms
+2025-06-06 15:42:27.853 [http-nio-8086-exec-3] INFO  c.w.w.m.s.s.WorkerAssignmentService - Reassigned assignment A001 from workers W003 and W004 to W005 and W006
+2025-06-06 15:43:30.323 [http-nio-8086-exec-4] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.wastewise.worker.management.exception.WorkersAlreadyAssignedException: The assignment has already two workers assigned to it, please update the assignment instead of assigning any new worker]
+2025-06-06 15:43:44.823 [http-nio-8086-exec-5] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.wastewise.worker.management.exception.WorkersAlreadyAssignedException: The assignment has already two workers assigned to it, please update the assignment instead of assigning any new worker]
+2025-06-06 15:44:23.219 [http-nio-8086-exec-8] INFO  c.w.w.m.s.s.WorkerAssignmentService - Assigned worker W007 to assignment A002
+2025-06-06 15:44:29.703 [http-nio-8086-exec-7] INFO  c.w.w.m.s.s.WorkerAssignmentService - Assigned worker W008 to assignment A002
+2025-06-06 15:45:01.514 [http-nio-8086-exec-6] INFO  c.w.w.m.controller.WorkerController - Creating a new worker profile
+2025-06-06 15:45:01.561 [http-nio-8086-exec-6] INFO  c.w.w.m.s.serviceimpl.WorkerService - Creating new worker: W009
+2025-06-06 15:45:42.223 [http-nio-8086-exec-9] INFO  c.w.w.m.controller.WorkerController - Creating a new worker profile
+2025-06-06 15:45:42.240 [http-nio-8086-exec-9] INFO  c.w.w.m.s.serviceimpl.WorkerService - Creating new worker: W010
+2025-06-06 15:46:03.425 [http-nio-8086-exec-10] INFO  c.w.w.m.controller.WorkerController - Creating a new worker profile
+2025-06-06 15:46:03.435 [http-nio-8086-exec-10] INFO  c.w.w.m.s.serviceimpl.WorkerService - Creating new worker: W011
+2025-06-06 15:46:31.634 [http-nio-8086-exec-2] INFO  c.w.w.m.controller.WorkerController - Creating a new worker profile
+2025-06-06 15:46:31.656 [http-nio-8086-exec-2] INFO  c.w.w.m.s.serviceimpl.WorkerService - Creating new worker: W012
+2025-06-06 15:47:42.769 [http-nio-8086-exec-4] INFO  c.w.w.m.s.s.WorkerAssignmentService - Assigned worker W009 to assignment A003
+2025-06-06 15:47:55.568 [http-nio-8086-exec-5] INFO  c.w.w.m.s.s.WorkerAssignmentService - Assigned worker W010 to assignment A003
+2025-06-06 15:48:15.154 [http-nio-8086-exec-8] INFO  c.w.w.m.s.s.WorkerAssignmentService - Assigned worker W011 to assignment A004
+2025-06-06 15:48:27.350 [http-nio-8086-exec-7] INFO  c.w.w.m.s.s.WorkerAssignmentService - Assigned worker W012 to assignment A004
+2025-06-06 15:53:35.582 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-06-06 15:53:35.593 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-06-06 15:53:35.619 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-06 15:53:35.628 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-06 15:53:35.645 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

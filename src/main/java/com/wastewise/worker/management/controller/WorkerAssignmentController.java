@@ -1,6 +1,7 @@
 package com.wastewise.worker.management.controller;
 
 import com.wastewise.worker.management.dto.WorkerAssignmentDTO;
+import com.wastewise.worker.management.dto.WorkerReassignRequestDTO;
 import com.wastewise.worker.management.service.serviceimpl.WorkerAssignmentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,25 +58,23 @@ public class WorkerAssignmentController {
     /**
      *
      * @param assignmentId
-     * @param oldWorkerId1
-     * @param oldWorkerId2
-     * @param newWorkerId1
-     * @param newWorkerId2
+     * @param request
      * @return
      */
-    @PutMapping("/update/{assignmentId}/{oldWorkerId1}/{oldWorkerId2}/{newWorkerId1}/{newWorkerId2}")
+    @PutMapping("/reassign/{assignmentId}/")
     public ResponseEntity<String> updateBothWorkerAssignments(
             @PathVariable String assignmentId,
-            @PathVariable String oldWorkerId1,
-            @PathVariable String oldWorkerId2,
-            @PathVariable String newWorkerId1,
-            @PathVariable String newWorkerId2) {
-
-        String result = workerAssignmentService.updateBothWorkerAssignments(
-                assignmentId, oldWorkerId1, oldWorkerId2, newWorkerId1, newWorkerId2
-        );
-        return ResponseEntity.ok(result);
+            @RequestBody WorkerReassignRequestDTO request) {
+        return ResponseEntity.ok(
+                workerAssignmentService.updateBothWorkerAssignments(
+                        assignmentId,
+                        request.getOldWorkerId1(),
+                        request.getOldWorkerId2(),
+                        request.getNewWorkerId1(),
+                        request.getNewWorkerId2()));
     }
+
+    //fetch workerIds related to the assignmentId passed
 
     /**
      * Deletes assignment and updates the status of the workers

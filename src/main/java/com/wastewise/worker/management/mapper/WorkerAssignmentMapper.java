@@ -8,9 +8,9 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface WorkerAssignmentMapper {
 
-    @Mapping(target = "worker", source = "workerId")
     WorkerAssignment toEntity(WorkerAssignmentDTO dto);
 
-    @Mapping(target = "workerId", source = "worker.workerId")
+    @Mapping(source = "id.assignmentId", target = "assignmentId")
+    @Mapping(source = "id.workerId", target = "workerId")
     WorkerAssignmentDTO toDTO(WorkerAssignment entity);
 }

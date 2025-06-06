@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -145,13 +146,14 @@ public class WorkerAssignmentService implements com.wastewise.worker.management.
                 new WorkerAssignmentId(assignmentId, oldWorkerId2)
         );
 
-        for (WorkerAssignmentId id : oldIds) {
-            if (!workerAssignmentRepository.existsById(id)) {
-                throw new ResourceNotFoundException("Assignment not found for worker: " + id.getWorkerId());
-            }
+        // Step 1: Fetch old assignments
+        List<WorkerAssignment> oldAssignments = workerAssignmentRepository.findAllById(oldIds);
+        if (oldAssignments.size() != 2) {
+            throw new ResourceNotFoundException("One or both old assignments not found");
         }
 
-         List<String> newWorkerIds = List.of(newWorkerId1, newWorkerId2);
+        // Step 2: Fetch new workers
+        List<String> newWorkerIds = List.of(newWorkerId1, newWorkerId2);
         List<Worker> newWorkers = workerRepository.findAllById(newWorkerIds);
 
         if (newWorkers.size() != 2) {
@@ -164,21 +166,33 @@ public class WorkerAssignmentService implements com.wastewise.worker.management.
             }
         }
 
-        // Delete old assignments
+        // Step 3: Delete old assignments
         workerAssignmentRepository.deleteAllById(oldIds);
 
-        // Create new assignments
-        List<WorkerAssignment> newAssignments = newWorkerIds.stream()
-                .map(workerId -> {
-                    WorkerAssignment assignment = new WorkerAssignment();
-                    assignment.setId(new WorkerAssignmentId(assignmentId, workerId));
-                    assignment.setCreatedDate(LocalDateTime.now());
-                    return assignment;
-                }).toList();
+        // Step 4: Create new assignments with old values
+        List<WorkerAssignment> newAssignments = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            WorkerAssignment oldAssignment = oldAssignments.get(i);
+            String newWorkerId = newWorkerIds.get(i);
+            Worker newWorker = newWorkers.get(i);
+
+            WorkerAssignment newAssignment = new WorkerAssignment();
+            newAssignment.setId(new WorkerAssignmentId(assignmentId, newWorkerId));
+            newAssignment.setWorker(newWorker);
+            newAssignment.setRouteId(oldAssignment.getRouteId());
+            newAssignment.setZoneId(oldAssignment.getZoneId());
+            newAssignment.setShift(oldAssignment.getShift());
+            newAssignment.setCreatedBy(oldAssignment.getCreatedBy());
+            newAssignment.setCreatedDate(oldAssignment.getCreatedDate());
+            newAssignment.setUpdatedBy("system"); // or whoever is updating
+            newAssignment.setUpdatedDate(LocalDateTime.now());
+
+            newAssignments.add(newAssignment);
+        }
 
         workerAssignmentRepository.saveAll(newAssignments);
 
-        // Update statuses
+        // Step 5: Update worker statuses
         List<String> oldWorkerIds = List.of(oldWorkerId1, oldWorkerId2);
         List<Worker> oldWorkers = workerRepository.findAllById(oldWorkerIds);
 
@@ -197,6 +211,7 @@ public class WorkerAssignmentService implements com.wastewise.worker.management.
 
         return "Both worker assignments updated successfully";
     }
+
 
 
     /**
