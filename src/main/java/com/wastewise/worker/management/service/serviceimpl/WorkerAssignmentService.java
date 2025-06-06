@@ -127,16 +127,6 @@ public class WorkerAssignmentService implements com.wastewise.worker.management.
         return "Worker assignment updated successfully";
     }
 
-    /**
-     *
-     * @param assignmentId
-     * @param oldWorkerId1
-     * @param oldWorkerId2
-     * @param newWorkerId1
-     * @param newWorkerId2
-     * @return
-     */
-
     @Transactional
     public String updateBothWorkerAssignments(String assignmentId,
                                               String oldWorkerId1, String oldWorkerId2,

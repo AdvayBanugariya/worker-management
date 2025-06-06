@@ -11,6 +11,7 @@ import com.wastewise.worker.management.repository.WorkerRepository;
 import com.wastewise.worker.management.utility.IdGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -34,12 +35,15 @@ public class WorkerService implements com.wastewise.worker.management.service.Wo
     /**
      * Creates a new worker in the system, takes dto of workerCreateDTO
      *
-     * @param dto
-     * @return worker
+     * @param dto of workerCreateDTO(name, contactNumber, contactEmail, roleId, Status)
+     * @return worker creation message
      */
+    @Transactional
     public String createWorker(WorkerCreateDTO dto) {
         String id = idGenerator.generateWorkerId();
+
         log.info("Creating new worker: {}", id);
+
         Worker worker = workerMapper.toEntity(dto);
         worker.setWorkerId(id);
         worker.setCreatedDate(LocalDateTime.now());
@@ -59,6 +63,7 @@ public class WorkerService implements com.wastewise.worker.management.service.Wo
      *
      * @return workerDTO object that is consist of worker id, name, contact details, status and roleId
      */
+    @Transactional
     public WorkerDTO getWorker(String id) throws WorkerNotFoundException {
         Worker worker = workerRepository.findById(id)
                 .orElseThrow(() -> new WorkerNotFoundException("Worker with id " + id + " does not exist"));
@@ -88,6 +93,7 @@ public class WorkerService implements com.wastewise.worker.management.service.Wo
      *
      * @return dto of WorkerUpdateDTO
      */
+    @Transactional
     public String updateWorker(String id, WorkerUpdateDTO dto) throws WorkerNotFoundException {
         Worker worker = workerRepository.findById(id)
                 .orElseThrow(() -> new WorkerNotFoundException("Worker with id " + id + " does not exist"));
@@ -97,6 +103,7 @@ public class WorkerService implements com.wastewise.worker.management.service.Wo
         return "Updated worker with id "+worker.getWorkerId();
     }
 
+    @Transactional
     public String changeWorkerStatus(String id, WorkerStatus workerStatus){
         Worker worker = workerRepository.findById(id)
                 .orElseThrow(() -> new WorkerNotFoundException("Worker with id " + id + " does not exist"));
