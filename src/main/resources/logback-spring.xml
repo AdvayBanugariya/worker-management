@@ -12,7 +12,7 @@
         <file>logs/pickup-service.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
-            <fileNamePattern>logs/pickup-service.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>logs/worker-management-service.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>
@@ -27,7 +27,7 @@
     </root>
 
     <!-- Package-specific logging level -->
-    <logger name="com.wastewise.workermanagement" level="DEBUG" additivity="false">
+    <logger name="com.wastewise.workermanagement" level="INFO" additivity="false">
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="FILE" />
     </logger>

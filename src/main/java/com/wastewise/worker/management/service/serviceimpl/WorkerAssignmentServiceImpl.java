@@ -22,14 +22,14 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class WorkerAssignmentService implements com.wastewise.worker.management.service.WorkerAssignmentService {
+public class WorkerAssignmentServiceImpl implements com.wastewise.worker.management.service.WorkerAssignmentService {
     private final WorkerAssignmentRepository workerAssignmentRepository;
 
     private final WorkerAssignmentMapper workerAssignmentMapper;
 
     private final WorkerRepository workerRepository;
 
-    public WorkerAssignmentService(WorkerAssignmentRepository workerAssignmentRepository, WorkerRepository workerRepository, WorkerAssignmentMapper workerAssignmentMapper){
+    public WorkerAssignmentServiceImpl(WorkerAssignmentRepository workerAssignmentRepository, WorkerRepository workerRepository, WorkerAssignmentMapper workerAssignmentMapper){
         this.workerAssignmentRepository = workerAssignmentRepository;
         this.workerRepository = workerRepository;
         this.workerAssignmentMapper = workerAssignmentMapper;
@@ -115,6 +115,7 @@ public class WorkerAssignmentService implements com.wastewise.worker.management.
         newAssignment.setCreatedDate(oldWorkerAssignment.getCreatedDate());
         newAssignment.setCreatedBy(oldWorkerAssignment.getCreatedBy());
         newAssignment.setShift(oldWorkerAssignment.getShift());
+        newAssignment.setUpdatedDate(LocalDateTime.now());
         workerAssignmentRepository.save(newAssignment);
 
         Worker oldWorker = workerRepository.findById(oldWorkerId)

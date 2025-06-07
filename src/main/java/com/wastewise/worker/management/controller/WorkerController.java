@@ -6,6 +6,7 @@ import com.wastewise.worker.management.dto.WorkerUpdateDTO;
 import com.wastewise.worker.management.enums.WorkerStatus;
 import com.wastewise.worker.management.model.Worker;
 import com.wastewise.worker.management.service.serviceimpl.WorkerService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,7 +32,7 @@ public class WorkerController {
      * @return string message for confirmation of successful or failed execution
      */
     @PostMapping
-    public ResponseEntity<String> createWorker(@RequestBody WorkerCreateDTO dto) {
+    public ResponseEntity<String> createWorker(@Valid @RequestBody WorkerCreateDTO dto) {
         log.info("Creating a new worker profile");
         return ResponseEntity.ok(workerService.createWorker(dto));
     }
@@ -86,7 +87,7 @@ public class WorkerController {
      */
     @PutMapping("/{id}")
     public ResponseEntity<String> updateWorker(@PathVariable String id,
-                                                        @RequestBody WorkerUpdateDTO dto) {
+                                                        @Valid @RequestBody WorkerUpdateDTO dto) {
         log.info("updating worker with id {}", id);
         return ResponseEntity.ok(workerService.updateWorker(id, dto));
     }

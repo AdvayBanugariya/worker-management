@@ -1,15 +1,31 @@
 package com.wastewise.worker.management.dto;
 
 import com.wastewise.worker.management.enums.WorkerStatus;
+import com.wastewise.worker.management.utility.ValidEnum;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
 public class WorkerUpdateDTO {
+    @NotBlank(message = "Name is required")
     private String name;
+
+    @NotBlank(message = "Contact number is required")
+    @Size(min = 10, max = 10, message = "Contact number must be exactly 10 digits")
     private String contactNumber;
+
+    @Email(message = "Invalid email format")
     private String contactEmail;
+
+    @Pattern(regexp = "002|003", message = "Role ID must be either '002' or '003'")
     private String roleId;
-    private WorkerStatus workerStatus;
+
+    @NotBlank(message = "Valid worker status is required")
+    @ValidEnum(enumClass = WorkerStatus.class, message = "Worker status must be 'AVAILABLE'")
+    private String workerStatus;
 }

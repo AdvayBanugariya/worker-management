@@ -3,7 +3,8 @@ package com.wastewise.worker.management.controller;
 import com.wastewise.worker.management.dto.UpdateWorkerAssignDTO;
 import com.wastewise.worker.management.dto.WorkerAssignmentDTO;
 import com.wastewise.worker.management.dto.WorkerReassignRequestDTO;
-import com.wastewise.worker.management.service.serviceimpl.WorkerAssignmentService;
+import com.wastewise.worker.management.service.serviceimpl.WorkerAssignmentServiceImpl;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +17,10 @@ import java.util.List;
 @RequestMapping("/wastewise/admin/worker-assignments")
 public class WorkerAssignmentController {
 
-    private final WorkerAssignmentService workerAssignmentService;
+    private final WorkerAssignmentServiceImpl workerAssignmentServiceImpl;
 
-    public WorkerAssignmentController(WorkerAssignmentService workerAssignmentService) {
-        this.workerAssignmentService = workerAssignmentService;
+    public WorkerAssignmentController(WorkerAssignmentServiceImpl workerAssignmentServiceImpl) {
+        this.workerAssignmentServiceImpl = workerAssignmentServiceImpl;
     }
 
     /**
@@ -29,7 +30,7 @@ public class WorkerAssignmentController {
     @GetMapping
     public ResponseEntity<List<WorkerAssignmentDTO>> findAllWorkerAssignments(){
         log.info("fetching all the workerAssignments");
-        return new ResponseEntity<>(workerAssignmentService.findAllWorkerAssignments(), HttpStatus.FOUND);
+        return new ResponseEntity<>(workerAssignmentServiceImpl.findAllWorkerAssignments(), HttpStatus.FOUND);
     }
 
     /**
@@ -40,16 +41,16 @@ public class WorkerAssignmentController {
     @PostMapping("/{assignmentId}")
     public ResponseEntity<String> assignWorkerToAssignment(
             @PathVariable String assignmentId,
-    @RequestBody WorkerAssignmentDTO dto) {
+    @Valid @RequestBody WorkerAssignmentDTO dto) {
         log.info("assigning worker");
-        String result = workerAssignmentService.assignWorkertoAssignment(assignmentId, dto.getWorkerId(), dto);
+        String result = workerAssignmentServiceImpl.assignWorkertoAssignment(assignmentId, dto.getWorkerId(), dto);
         return ResponseEntity.ok(result);
     }
 
 
 
     /**
-     *
+     * Updating worker Assignment. Replacing one worker with only one worker and changing the status
      * @param assignmentId of the assignment to which new worker needs to he assigned
      * @param dto updateWorkerAssignDTO (OldWorkerId, newWorkerId)
      * @return String stating that the update has been executed
@@ -57,8 +58,8 @@ public class WorkerAssignmentController {
     @PutMapping("/update/{assignmentId}")
     public ResponseEntity<String> updateWorkerAssignment(
             @PathVariable String assignmentId,
-            @RequestBody UpdateWorkerAssignDTO dto) {
-        String result = workerAssignmentService.updateSingleWorkerAssignment(assignmentId, dto.getOldWorkerId(), dto.getNewWorkerId());
+            @Valid @RequestBody UpdateWorkerAssignDTO dto) {
+        String result = workerAssignmentServiceImpl.updateSingleWorkerAssignment(assignmentId, dto.getOldWorkerId(), dto.getNewWorkerId());
         return ResponseEntity.ok(result);
     }
 
@@ -71,12 +72,12 @@ public class WorkerAssignmentController {
     @PutMapping("/reassign/{assignmentId}/")
     public ResponseEntity<String> updateBothWorkerAssignments(
             @PathVariable String assignmentId,
-            @RequestBody WorkerReassignRequestDTO request) {
+            @Valid @RequestBody WorkerReassignRequestDTO request) {
         log.info("Replacing workers {} and {} assigned to the assignment {} with workers {} and {}",
                 request.getOldWorkerId1(),request.getOldWorkerId1(),
                 assignmentId,request.getNewWorkerId1(),request.getNewWorkerId2());
         return ResponseEntity.ok(
-                workerAssignmentService.updateBothWorkerAssignments(
+                workerAssignmentServiceImpl.updateBothWorkerAssignments(
                         assignmentId,
                         request.getOldWorkerId1(),
                         request.getOldWorkerId2(),
@@ -95,9 +96,7 @@ public class WorkerAssignmentController {
     public ResponseEntity<String> deleteWorkerAssignment(
             @PathVariable String assignmentId) {
         log.info("Deleting workerAssignments with assignmentId {} and chaning the status of assigned workers", assignmentId);
-        String result = workerAssignmentService.deleteWorkerAssignment(assignmentId);
+        String result = workerAssignmentServiceImpl.deleteWorkerAssignment(assignmentId);
         return ResponseEntity.ok(result);
     }
-
-
 }
